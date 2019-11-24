@@ -10,4 +10,4 @@ chmod +x git-create.sh
 git config --global alias.create '!/home/Folder_Path/git-create.sh'
 
 # USAGE
-just type on bash: git create 
+just type on terminal: git create 
