@@ -5,6 +5,7 @@ git_private=false
 git_email=$(git config user.email)
 git_name=$(git config user.name)
 repo_name=${PWD##*/}	
+my_access_token=$(git config user.password)
 README_FILENAME="README.md"
 GITIGNORE_FILENAME=".gitignore"
 GITIGNORE_STRING_DATA="/git-create.sh"
@@ -113,7 +114,7 @@ init_local_repo() {
 
 #initialize the global repository
 init_global_repo() {
-	curl -u $git_email https://api.github.com/user/repos -d "{\"name\":\"$repo_name\", \"description\": \"$repo_description\", \"private\": "$git_private"}"
+	curl -H "Authorization: token "$my_access_token"" https://api.github.com/user/repos -d "{\"name\":\"$repo_name\", \"description\": \"$repo_description\", \"private\": "$git_private"}"
 }
 
 # Give the public URL repository and push the files on it
