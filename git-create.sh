@@ -51,6 +51,20 @@ provide_git_name() {
 	done
 }
 
+# Create the githHub user name for the repository
+provide_git_token() {
+	while [[ -z $my_access_token ]]
+	do	
+		read -p 'Give me your gitHub name: ' my_access_token
+		if [[ ! -z $my_access_token ]]; then
+			git config --global user.password $my_access_token
+			break
+		else 
+			echo "Please enter a valid gitHub token"
+		fi		
+	done
+}
+
 # Create description for the repository
 provide_repository_description() {
 	while [[ -z $repo_description ]]
