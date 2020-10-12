@@ -55,7 +55,7 @@ provide_git_name() {
 provide_git_token() {
 	while [[ -z $my_access_token ]]
 	do	
-		read -p 'Give me your gitHub name: ' my_access_token
+		read -p 'Give me your gitHub token: ' my_access_token
 		if [[ ! -z $my_access_token ]]; then
 			git config --global user.password $my_access_token
 			break
@@ -141,6 +141,7 @@ push_to_global_repo() {
 provide_email
 provide_repository_name
 provide_git_name
+provide_git_token
 provide_repository_description
 private_repository
 create_readme
