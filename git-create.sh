@@ -5,6 +5,7 @@ git_private=false
 git_email=$(git config user.email)
 git_name=$(git config user.name)
 repo_name=${PWD##*/}	
+repo_description=""
 my_access_token=$(git config user.password)
 README_FILENAME="README.md"
 GITIGNORE_FILENAME=".gitignore"
