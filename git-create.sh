@@ -5,6 +5,7 @@ git_private=false
 git_email=$(git config user.email)
 git_name=$(git config user.name)
 repo_name=${PWD##*/}	
+my_access_token=$(git config user.password)
 README_FILENAME="README.md"
 GITIGNORE_FILENAME=".gitignore"
 GITIGNORE_STRING_DATA="/git-create.sh"
@@ -46,6 +47,20 @@ provide_git_name() {
 			break
 		else 
 			echo "Please enter a valid gitHub name"
+		fi		
+	done
+}
+
+# Create the githHub token for the repository
+provide_git_token() {
+	while [[ -z $my_access_token ]]
+	do	
+		read -p 'Give me your gitHub token: ' my_access_token
+		if [[ ! -z $my_access_token ]]; then
+			git config --global user.password $my_access_token
+			break
+		else 
+			echo "Please enter a valid gitHub token"
 		fi		
 	done
 }
@@ -113,7 +128,7 @@ init_local_repo() {
 
 #initialize the global repository
 init_global_repo() {
-	curl -u $git_email https://api.github.com/user/repos -d "{\"name\":\"$repo_name\", \"description\": \"$repo_description\", \"private\": "$git_private"}"
+	curl -H "Authorization: token "$my_access_token"" https://api.github.com/user/repos -d "{\"name\":\"$repo_name\", \"description\": \"$repo_description\", \"private\": "$git_private"}"
 }
 
 # Give the public URL repository and push the files on it
@@ -126,6 +141,7 @@ push_to_global_repo() {
 provide_email
 provide_repository_name
 provide_git_name
+provide_git_token
 provide_repository_description
 private_repository
 create_readme
