@@ -112,11 +112,18 @@ EOL
 }
 
 # if gitignore file contains the string dont't write it again into the file 
-create_gitignore() {
+create_gitignore_with_string() {
 if ! grep -q ${GITIGNORE_STRING_DATA} ${GITIGNORE_FILENAME}; then
 	cat >> ${GITIGNORE_FILENAME} <<EOL
-/git-create.sh
+$GITIGNORE_STRING_DATA
 EOL
+fi
+}
+
+# if gitignore does not exist create it
+create_gitignore() {
+	if [ ! -f ${GITIGNORE_FILENAME} ]; then 
+		touch ${GITIGNORE_FILENAME} 
 fi
 }
 
